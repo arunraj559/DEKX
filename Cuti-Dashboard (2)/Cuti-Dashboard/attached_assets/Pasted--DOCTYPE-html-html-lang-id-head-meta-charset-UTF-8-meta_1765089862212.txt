@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Cuti Staff - Neon Gaming Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cyan: #00d4ff;
+            --magenta: #ff0080;
+            --dark-bg: #0d0d1a;
+            --dark-card: #141428;
+            --neon-border: 2px solid;    
+            --text-primary: #f0f0ff;
+            --text-secondary: #00d4ff;
+            --success: #00ff7f;
+            --warning: #ffd700;
+            --danger: #ff0055;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, #0d0d1a 0%, #141428 50%, #0d0d1a 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 255, 255, 0.03) 0px,
+                    rgba(0, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--magenta);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: var(--neon-border) var(--cyan);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--cyan);
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--magenta);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: 2px solid var(--magenta);
+            background: rgba(13, 13, 26, 0.9);
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-primary);
+            box-shadow: 0 0 10px rgba(255, 0, 128, 0.4);
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        button:hover {
+            background: var(--magenta);
+            color: #000;
+            box-shadow: 0 0 20px var(--magenta), 0 0 40px var(--magenta);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+            background: linear-gradient(135deg, rgba(13, 13, 26, 0.95), rgba(20, 20, 40, 0.95));
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--cyan), rgba(0, 212, 255, 0.9));
+            color: #000;
+            box-shadow: 0 0 25px var(--cyan), inset 0 0 10px rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            border-color: var(--cyan);
+        }
+
+        .btn-secondary:hover {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        .btn-success {
+            border-color: var(--success);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .btn-success:hover {
+            background: var(--success);
+            color: #000;
+            box-shadow: 0 0 20px var(--success);
+        }
+
+        .btn-danger {
+            border-color: var(--danger);
+            box-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: #000;
+            box-shadow: 0 0 20px var(--danger);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        .page-title {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: var(--cyan);
+            text-align: center;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--magenta);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 2.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1200px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card */
+        .card {
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid var(--magenta);
+            border-radius: 2px;
+            padding: 32px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--cyan), var(--magenta), var(--cyan));
+            border-radius: 2px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 0.3;
+        }
+
+        .card-header {
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--cyan);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
+            text-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--cyan);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--magenta);
+            border-radius: 2px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px var(--cyan), inset 0 0 10px rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Month Selector */
+        .month-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--magenta);
+        }
+
+        .month-selector label {
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--cyan);
+        }
+
+        .month-selector input {
+            flex: 1;
+            max-width: 200px;
+        }
+
+        /* Division Status Cards */
+        .division-status {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1200px) {
+            .division-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .division-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--cyan);
+            border-radius: 2px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .division-card:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+
+        .division-card.full {
+            border-color: var(--danger);
+            box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+        }
+
+        .division-card.full:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 102, 0.8);
+        }
+
+        .division-name {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            text-shadow: 0 0 5px var(--cyan);
+        }
+
+        .division-count {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        .division-card.full .division-count {
+            color: var(--danger);
+            text-shadow: 0 0 10px var(--danger);
+        }
+
+        .division-limit {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* Tabs */
+        .tab-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 2px;
+            border: 1px solid var(--magenta);
+            margin-bottom: 28px;
+        }
+
+        .tab-trigger {
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--cyan);
+            border: 2px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        .tab-trigger:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .tab-trigger.active {
+            background: var(--cyan);
+            color: #000;
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px var(--cyan);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Leave Card */
+        .leave-card {
+            background: rgba(26, 26, 46, 0.6);
+            border-left: 5px solid var(--cyan);
+            border: 2px solid var(--magenta);
+            border-radius: 2px;
+            padding: 24px;
+            margin-bottom: 16px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .leave-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .leave-card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .leave-card-title h4 {
+            font-size: 18px;
+            letter-spacing: 0.08em;
+            color: var(--cyan);
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid;
+        }
+
+        .badge-division {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        }
+
+        .badge-pending {
+            border-color: var(--warning);
+            color: var(--warning);
+            box-shadow: 0 0 8px rgba(255, 255, 0, 0.5);
+        }
+
+        .badge-approved {
+            border-color: var(--success);
+            color: var(--success);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+        }
+
+        .leave-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--cyan);
+            border-radius: 2px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .leave-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 10px;
+            color: var(--cyan);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            text-shadow: 0 0 5px var(--cyan);
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .leave-card-footer {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid var(--magenta);
+            padding-top: 16px;
+            margin-top: 12px;
+        }
+
+        .leave-card-footer button {
+            padding: 8px 14px;
+            font-size: 11px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid var(--cyan);
+            border-radius: 2px;
+            padding: 36px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 15px var(--cyan);
+        }
+
+        .modal-body {
+            margin-bottom: 28px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            border: 2px dashed var(--magenta);
+            border-radius: 2px;
+            color: var(--cyan);
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(26, 26, 46, 0.95);
+            border: 2px solid var(--cyan);
+            border-radius: 2px;
+            padding: 18px 24px;
+            color: var(--text-primary);
+            z-index: 2000;
+            animation: toastSlideIn 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 2px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--cyan);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .user-info:hover {
+            background: var(--cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--cyan);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 2px;
+            background: var(--magenta);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #000;
+            font-size: 16px;
+            box-shadow: 0 0 10px var(--magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    ⚡ CUTI STAFF
+                </div>
+                <div class="header-actions">
+                    <div class="user-menu">
+                        <div class="user-info" onclick="toggleUserMenu()">
+                            <div class="user-avatar" id="userAvatar">-</div>
+                            <span id="userName" style="display: none; font-size: 14px; min-width: 100px;">GUEST</span>
+                        </div>
+                    </div>
+                    <button class="btn-secondary" onclick="openApproverModal()">⚙️ APPROVERS</button>
+                    <button class="btn-secondary" onclick="logout()" id="logoutBtn" style="display: none;">🚪 LOGOUT</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="page-title">⚡ DASHBOARD CUTI STAFF ⚡</div>
+
+            <div class="grid">
+                <!-- Left: Form -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">➕ AJUKAN CUTI</div>
+                        </div>
+                        
+                        <div class="month-selector">
+                            <label>BULAN:</label>
+                            <input type="month" id="formMonth">
+                        </div>
+
+                        <form id="leaveForm" onsubmit="submitLeave(event)">
+                            <div class="form-group">
+                                <label>NAMA STAFF *</label>
+                                <input type="text" id="namaStaff" placeholder="Masukkan nama staff" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>DIVISI *</label>
+                                <select id="division" required>
+                                    <option value="">-- PILIH DIVISI --</option>
+                                    <option value="KAPTEN">KAPTEN (Max 3/bulan)</option>
+                                    <option value="CS">CS (Max 3/bulan)</option>
+                                    <option value="KASIR">KASIR (Max 3/bulan)</option>
+                                    <option value="CS LINE">CS LINE (Max 1/bulan)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>PERIHAL *</label>
+                                <input type="text" id="perihal" placeholder="Contoh: PENGAJUAN CUTI INDO AMBIL PASPOR" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>SITUS</label>
+                                <input type="text" id="situs" placeholder="Nama situs (opsional)">
+                            </div>
+
+                            <div class="form-group">
+                                <label>NO PASPOR</label>
+                                <input type="text" id="noPaspor" placeholder="Nomor paspor (opsional)">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>TANGGAL MULAI *</label>
+                                    <input type="date" id="startDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>TANGGAL SELESAI *</label>
+                                    <input type="date" id="endDate" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>KETERANGAN</label>
+                                <textarea id="keterangan" placeholder="Contoh: CUTI INDO" style="resize: none; min-height: 80px;"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="width: 100%; font-size: 16px; padding: 16px; margin-top: 20px;">
+                                ⚡ AJUKAN CUTI
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right: Status & List -->
+                <div>
+                    <!-- Division Status -->
+                    <div class="card" style="margin-bottom: 40px;">
+                        <div class="card-header">
+                            <div class="card-title">📊 STATUS SLOT</div>
+                        </div>
+                        
+                        <div class="month-selector" style="margin-bottom: 20px;">
+                            <label>LIHAT BULAN:</label>
+                            <input type="month" id="viewMonth">
+                        </div>
+
+                        <div class="division-status" id="divisionStatus">
+                            <!-- Will be filled by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="card">
+                        <div class="tab-list">
+                            <button class="tab-trigger active" onclick="switchTab('pending')">⏳ MENUNGGU (<span id="pendingCount">0</span>)</button>
+                            <button class="tab-trigger" onclick="switchTab('approved')">✓ DISETUJUI (<span id="approvedCount">0</span>)</button>
+                            <button class="tab-trigger" onclick="switchTab('all')">📋 SEMUA (<span id="allCount">0</span>)</button>
+                        </div>
+
+                        <div id="pending-tab" class="tab-content active">
+                            <div id="pendingList"></div>
+                        </div>
+
+                        <div id="approved-tab" class="tab-content">
+                            <div id="approvedList"></div>
+                        </div>
+
+                        <div id="all-tab" class="tab-content">
+                            <div id="allList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">🔐 LOGIN</div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>EMAIL / USERNAME</label>
+                    <input type="email" id="loginEmail" placeholder="Masukkan email Anda" autofocus>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeLoginModal()">BATAL</button>
+                <button class="btn-primary" onclick="login()">LOGIN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Approver Settings Modal -->
+    <div class="modal" id="approverModal">
+        <div class="modal-content">
+            <div class="modal-header">⚙️ PENGATURAN APPROVER</div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">TAMBAHKAN EMAIL APPROVER (MAKSIMAL 2 ORANG):</p>
+                <div class="form-group">
+                    <input type="email" id="newApproverEmail" placeholder="Email approver" autofocus>
+                </div>
+                <button class="btn-secondary" onclick="addApprover()" style="width: 100%; margin-bottom: 20px;">+ TAMBAH APPROVER</button>
+                <div id="approversList" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <!-- Will be filled by JS -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeApproverModal()">BATAL</button>
+                <button class="btn-primary" onclick="saveApprovers()">SIMPAN</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== DATA MANAGEMENT =====
+        const LEAVES_KEY = 'leave_data_v2';
+        const APPROVERS_KEY = 'approvers_data';
+        const USER_KEY = 'current_user';
+
+        const DIVISION_LIMITS = {
+            'KAPTEN': 3,
+            'CS': 3,
+            'KASIR': 3,
+            'CS LINE': 1
+        };
+
+        let leaves = [];
+        let approvers = [];
+        let currentUser = null;
+
+        // ===== INITIALIZATION =====
+        function init() {
+            loadData();
+            currentUser = sessionStorage.getItem(USER_KEY);
+            
+            const today = new Date();
+            document.getElementById('formMonth').valueAsDate = today;
+            document.getElementById('viewMonth').valueAsDate = today;
+            
+            updateAllUI();
+        }
+
+        function loadData() {
+            const stored = localStorage.getItem(LEAVES_KEY);
+            leaves = stored ? JSON.parse(stored) : [];
+            
+            const approvStored = localStorage.getItem(APPROVERS_KEY);
+            approvers = approvStored ? JSON.parse(approvStored) : [];
+        }
+
+        function saveData() {
+            localStorage.setItem(LEAVES_KEY, JSON.stringify(leaves));
+            localStorage.setItem(APPROVERS_KEY, JSON.stringify(approvers));
+        }
+
+        // ===== FORM SUBMISSION =====
+        function submitLeave(e) {
+            e.preventDefault();
+
+            const month = document.getElementById('formMonth').value;
+            const division = document.getElementById('division').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            // Check if slot is available
+            const approvedInMonth = leaves.filter(l => l.month === month && l.division === division && l.approved);
+            const limit = DIVISION_LIMITS[division];
+            
+            if (approvedInMonth.length >= limit) {
+                showToast(`❌ SLOT PENUH - ${division} HANYA BOLEH ${limit} ORANG PER BULAN`);
+                return;
+            }
+
+            const data = {
+                id: Date.now().toString(),
+                situs: document.getElementById('situs').value || '',
+                perihal: document.getElementById('perihal').value,
+                noPaspor: document.getElementById('noPaspor').value || '',
+                namaStaff: document.getElementById('namaStaff').value,
+                startDate: startDate,
+                endDate: endDate,
+                division: division,
+                keterangan: document.getElementById('keterangan').value || '',
+                kontakDarurat: document.getElementById('kontakDarurat').value || '',
+                month: month,
+                approved: false,
+                approvedBy: null,
+                approvedAt: null,
+                createdAt: new Date().toISOString()
+            };
+
+            leaves.unshift(data);
+            saveData();
+            document.getElementById('leaveForm').reset();
+            showToast('✅ PENGAJUAN CUTI DISIMPAN');
+            updateAllUI();
+        }
+
+        // ===== LEAVE ACTIONS =====
+        function approveLea(id) {
+            if (!currentUser || !approvers.includes(currentUser.toLowerCase())) {
+                showToast('❌ ANDA TIDAK PUNYA HAK APPROVAL');
+                openApproverModal();
+                return;
+            }
+
+            const leave = leaves.find(l => l.id === id);
+            if (!leave) return;
+
+            const approvedInMonth = leaves.filter(l => 
+                l.month === leave.month && 
+                l.division === leave.division && 
+                l.approved &&
+                l.id !== id
+            );
+            const limit = DIVISION_LIMITS[leave.division];
+
+            if (approvedInMonth.length >= limit) {
+                showToast(`❌ SLOT PENUH - ${leave.division} SUDAH MENCAPAI LIMIT`);
+                return;
+            }
+
+            leave.approved = true;
+            leave.approvedBy = currentUser;
+            leave.approvedAt = new Date().toISOString();
+            saveData();
+            showToast(`✅ CUTI DISETUJUI - ${leave.namaStaff}`);
+            updateAllUI();
+        }
+
+        function rejectLeave(id) {
+            if (!currentUser || !approvers.includes(currentUser.toLowerCase())) {
+                showToast('❌ ANDA TIDAK PUNYA HAK');
+                return;
+            }
+
+            const idx = leaves.findIndex(l => l.id === id);
+            if (idx !== -1) {
+                leaves[idx].approved = false;
+                leaves[idx].approvedBy = null;
+                leaves[idx].approvedAt = null;
+                saveData();
+                showToast('⚠️ APPROVAL DIBATALKAN');
+                updateAllUI();
+            }
+        }
+
+        function deleteLeave(id) {
+            if (confirm('APAKAH ANDA YAKIN INGIN MENGHAPUS?')) {
+                leaves = leaves.filter(l => l.id !== id);
+                saveData();
+                showToast('🗑️ DATA DIHAPUS');
+                updateAllUI();
+            }
+        }
+
+        // ===== AUTHENTICATION =====
+        function openApproverModal() {
+            if (!currentUser) {
+                document.getElementById('loginModal').classList.add('active');
+            } else {
+                document.getElementById('approverModal').classList.add('active');
+                renderApprovers();
+            }
+        }
+
+        function closeApproverModal() {
+            document.getElementById('approverModal').classList.remove('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('loginEmail').value = '';
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim();
+            if (!email) {
+                showToast('❌ MASUKKAN EMAIL');
+                return;
+            }
+            currentUser = email.toLowerCase();
+            sessionStorage.setItem(USER_KEY, currentUser);
+            closeLoginModal();
+            updateAllUI();
+            showToast(`✅ LOGIN BERHASIL - ${email}`);
+        }
+
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem(USER_KEY);
+            updateAllUI();
+            showToast('🚪 LOGOUT BERHASIL');
+        }
+
+        function toggleUserMenu() {
+            // placeholder for menu toggle
+        }
+
+        // ===== APPROVER MANAGEMENT =====
+        function renderApprovers() {
+            const list = document.getElementById('approversList');
+            if (approvers.length === 0) {
+                list.innerHTML = '<p style="color: var(--text-secondary); font-size: 13px;">BELUM ADA APPROVER</p>';
+                return;
+            }
+
+            list.innerHTML = approvers.map(email => `
+                <div style="background: rgba(0, 255, 255, 0.15); padding: 8px 14px; border-radius: 2px; border: 1px solid var(--cyan); display: flex; align-items: center; gap: 8px; font-size: 13px;">
+                    ${email}
+                    <button type="button" onclick="removeApprover('${email}')" style="background: none; border: none; color: var(--danger); cursor: pointer; font-size: 16px;">×</button>
+                </div>
+            `).join('');
+        }
+
+        function addApprover() {
+            const email = document.getElementById('newApproverEmail').value.trim();
+            if (!email) {
+                showToast('❌ MASUKKAN EMAIL');
+                return;
+            }
+            if (approvers.length >= 2) {
+                showToast('❌ MAKSIMAL 2 APPROVER');
+                return;
+            }
+            if (approvers.includes(email.toLowerCase())) {
+                showToast('⚠️ EMAIL SUDAH ADA');
+                return;
+            }
+            approvers.push(email.toLowerCase());
+            document.getElementById('newApproverEmail').value = '';
+            renderApprovers();
+        }
+
+        function removeApprover(email) {
+            approvers = approvers.filter(a => a !== email);
+            renderApprovers();
+        }
+
+        function saveApprovers() {
+            saveData();
+            closeApproverModal();
+            showToast('✅ APPROVER TERSIMPAN');
+        }
+
+        // ===== UI RENDERING =====
+        function updateAllUI() {
+            updateUserDisplay();
+            updateDivisionStatus();
+            renderLeaves();
+            updateCounts();
+        }
+
+        function updateUserDisplay() {
+            const avatar = document.getElementById('userAvatar');
+            const name = document.getElementById('userName');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                avatar.textContent = currentUser[0].toUpperCase();
+                name.style.display = 'inline';
+                name.textContent = currentUser.toUpperCase();
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                avatar.textContent = '-';
+                name.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        function updateDivisionStatus() {
+            const month = document.getElementById('viewMonth').value;
+            const html = Object.entries(DIVISION_LIMITS).map(([div, limit]) => {
+                const count = leaves.filter(l => l.month === month && l.division === div && l.approved).length;
+                const isFull = count >= limit;
+                return `
+                    <div class="division-card ${isFull ? 'full' : ''}">
+                        <div class="division-name">${div}</div>
+                        <div class="division-count">${count}/${limit}</div>
+                        <div class="division-limit">${isFull ? '🔴 PENUH' : `${limit - count} TERSEDIA`}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('divisionStatus').innerHTML = html;
+        }
+
+        function renderLeaves() {
+            const pending = leaves.filter(l => !l.approved).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const approved = leaves.filter(l => l.approved).sort((a, b) => new Date(b.approvedAt || b.createdAt) - new Date(a.approvedAt || a.createdAt));
+
+            document.getElementById('pendingList').innerHTML = renderLeaveList(pending);
+            document.getElementById('approvedList').innerHTML = renderLeaveList(approved);
+            document.getElementById('allList').innerHTML = renderLeaveList(leaves.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+        }
+
+        function renderLeaveList(list) {
+            if (list.length === 0) {
+                return '<div class="empty-state"><div class="empty-state-text">TIDAK ADA DATA</div></div>';
+            }
+
+            return list.map(leave => {
+                const isApprover = currentUser && approvers.includes(currentUser.toLowerCase());
+                const startDate = new Date(leave.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                const endDate = new Date(leave.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                const days = Math.ceil((new Date(leave.endDate) - new Date(leave.startDate)) / (1000 * 60 * 60 * 24)) + 1;
+
+                return `
+                    <div class="leave-card">
+                        <div class="leave-card-header">
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <h4 style="margin: 0;">${leave.namaStaff}</h4>
+                                <span class="badge badge-division">${leave.division}</span>
+                            </div>
+                            <span class="badge ${leave.approved ? 'badge-approved' : 'badge-pending'}">
+                                ${leave.approved ? '✓ DISETUJUI' : '⏳ MENUNGGU'}
+                            </span>
+                        </div>
+
+                        <div style="padding: 16px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--magenta); border-radius: 2px; margin-bottom: 16px;">
+                            <div style="margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--magenta);">
+                                <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">PERIHAL</div>
+                                <div style="font-size: 14px; color: var(--text-primary); font-weight: 600;">${leave.perihal}</div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--magenta);">
+                                ${leave.situs ? `
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">SITUS</div>
+                                        <div style="font-size: 13px; color: var(--text-primary);">${leave.situs}</div>
+                                    </div>
+                                ` : `<div></div>`}
+                                ${leave.noPaspor ? `
+                                    <div>
+                                        <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">NO PASPOR</div>
+                                        <div style="font-size: 13px; color: var(--text-primary);">${leave.noPaspor}</div>
+                                    </div>
+                                ` : `<div></div>`}
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--magenta);">
+                                <div>
+                                    <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">TANGGAL MULAI</div>
+                                    <div style="font-size: 13px; color: var(--text-primary); font-weight: 600;">${startDate}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">TANGGAL SELESAI</div>
+                                    <div style="font-size: 13px; color: var(--text-primary); font-weight: 600;">${endDate}</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">DURASI</div>
+                                <div style="font-size: 13px; color: var(--text-primary); font-weight: 600;">${days} HARI</div>
+                            </div>
+
+                            ${leave.keterangan ? `
+                                <div>
+                                    <div style="font-size: 11px; color: var(--cyan); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 0 5px var(--cyan); margin-bottom: 4px;">KETERANGAN</div>
+                                    <div style="font-size: 13px; color: var(--text-primary);">${leave.keterangan}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        ${leave.approved ? `<div style="font-size: 12px; color: var(--success); padding: 12px; background: rgba(0, 255, 0, 0.1); border: 1px solid var(--success); border-radius: 2px; margin-bottom: 16px;">✓ DISETUJUI OLEH <strong>${leave.approvedBy}</strong> PADA ${new Date(leave.approvedAt).toLocaleDateString('id-ID')}</div>` : ''}
+                        
+                        <div class="leave-card-footer">
+                            ${isApprover && !leave.approved ? `<button class="btn-success" onclick="approveLea('${leave.id}')">✓ ACC</button>` : ''}
+                            ${isApprover && leave.approved ? `<button class="btn-danger" onclick="rejectLeave('${leave.id}')">✕ BATAL</button>` : ''}
+                            <button class="btn-secondary" onclick="deleteLeave('${leave.id}')">🗑️ HAPUS</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateCounts() {
+            const pending = leaves.filter(l => !l.approved).length;
+            const approved = leaves.filter(l => l.approved).length;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('approvedCount').textContent = approved;
+            document.getElementById('allCount').textContent = leaves.length;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        // ===== NOTIFICATIONS =====
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'toastSlideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // ===== EVENT LISTENERS =====
+        document.getElementById('viewMonth').addEventListener('change', updateDivisionStatus);
+
+        // Initialize
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
